@@ -21,7 +21,8 @@
             bucket      = "${bucket}" 
             file        = "${current.directory}\${file}" 
             key         = "${file}"
-            overwrite   = "true" />
+            overwrite   = "true"
+            public      = "true" />
     
     </target>
 

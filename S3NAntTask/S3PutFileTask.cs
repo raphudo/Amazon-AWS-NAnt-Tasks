@@ -11,6 +11,9 @@ namespace S3NAntTask
     [TaskName("amazon-s3-putFile")]
     public class S3PutFileTask : S3CoreFileTask
     {
+        [TaskAttribute("public", Required = false)]
+        [StringValidator(AllowEmpty = true)]
+        public bool Public { get; set; }
 
         /// <summary>Execute the NAnt task</summary>
         protected override void ExecuteTask() 
@@ -44,7 +47,8 @@ namespace S3NAntTask
                         Key = FileName,
                         BucketName = BucketName,
                         FilePath = FilePath,
-                        Timeout = timeout
+                        Timeout = timeout,
+                        CannedACL = Public ? S3CannedACL.PublicRead : S3CannedACL.NoACL
                     };
 
                     var response = Client.PutObject(request);
